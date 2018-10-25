@@ -13,7 +13,8 @@ RUN apt-get update && \
  apt-get install libqt4-dev libprotobuf-dev protobuf-compiler -y && \
  apt-get install libqrencode-dev -y && \
  apt-get install git -y && \
- apt-get install ca-certificates -y
+ apt-get install ca-certificates -y && \
+ apt-get install unzip -y
 
 RUN mkdir /src && \
  cd /src && \
@@ -26,6 +27,11 @@ RUN mkdir /src && \
  mkdir -p /yacoin/data && \
  cp /src/yacoin/src/yacoind /yacoin
  
+COPY data /tmp/data
+COPY startYacoin_0.4.9.sh /tmp/startYacoin_0.4.9.sh
+
+RUN chmod +x /tmp/startYacoin_0.4.9.sh
+
 WORKDIR "/yacoin"
 
-CMD ["yacoind","-datadir=/yacoin/data/","-conf=/yacoin/yacoin.conf"]
+CMD ["/tmp/startYacoin_0.4.9.sh"]
