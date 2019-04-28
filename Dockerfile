@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:xenial  
 MAINTAINER dev34253
 
 RUN apt-get update && \
@@ -27,11 +27,7 @@ RUN mkdir /src && \
  mkdir -p /yacoin/data && \
  cp /src/yacoin/src/yacoind /yacoin
  
-COPY data /tmp/data
-COPY startYacoin_0.4.9.sh /tmp/startYacoin_0.4.9.sh
-
-RUN chmod +x /tmp/startYacoin_0.4.9.sh
-
 WORKDIR "/yacoin"
 
-CMD ["/tmp/startYacoin_0.4.9.sh"]
+CMD ["./yacoind","-datadir=/yacoin/data/","-conf=/yacoin/data/yacoin.conf"]
+
